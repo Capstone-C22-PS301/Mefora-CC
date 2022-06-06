@@ -1,1 +1,7 @@
 runtime: nodejs14
+
+env_variables:
+  CLOUD_SQL_USERNAME: masterdb
+  CLOUD_SQL_PASSWORD: masterdb
+  CLOUD_SQL_DATABASE_NAME: mefora
+  CLOUD_SQL_CONNECTION_NAME: 34.135.51.7

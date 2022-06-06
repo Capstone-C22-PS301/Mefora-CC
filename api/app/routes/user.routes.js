@@ -12,16 +12,13 @@ module.exports = app => {
     router.get("/", users.findAll);
 
     //Retrieve single users
-    router.get("/:id", users.findOne);
+    router.get("/uid", users.findOne);
 
     //Update single users
-    router.put("/:id", users.update);
+    router.put("/uid", users.update);
 
     //Delete single users
-    router.delete("/:id", users.delete);
-
-    //Delete all users
-    router.delete("/", users.DeleteAll);
+    router.delete("/uid", users.delete);
 
     app.use("/api/users", router);
 }
