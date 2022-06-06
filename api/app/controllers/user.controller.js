@@ -5,23 +5,36 @@ const Op = db.Sequelize.Op;
 
 //Create
 exports.create = (req, res) => {
-    if(!req.body.name){
+    if(!req.body.UID){
         res.status(400).send({
+            success: false,
             message: "content can not be empty"
         });
         return;
     }
 
     const user = {
+        UID: req.body.UID,
         name: req.body.name,
+        nickname: req.body.nickname,
         address: req.body.address,
-        age: req.body.age,
-        published: req.body.published ? req.body.published : false
+        birth: req.body.birth,
+        status: req.body.status ? req.body.status : false
     }
 
     User.create(user)
         .then((data) => {
-            res.send(data);
+            if(data) {
+                res.send({
+                    success: true,
+                    message: "User was created successfully"
+                });
+            } else {
+                res.send({ 
+                    success: false,
+                    message: "Cannot create user" 
+                });
+            }
         }).catch((err) => {
             res.status(500).send({ 
                 message: 
@@ -49,58 +62,60 @@ exports.findAll = (req, res) => {
 
 //Find a single
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+    const UID = req.headers.token_uid;
 
-    User.findByPk(id)
+    User.findByPk(UID)
         .then((data) =>{
             res.send(data);
         }).catch((err) => {
             res.status(500).send({
-                message: "Error retrieving user with id=" + id
+                message: "Error retrieving user with id=" + UID
             });
         });
 };
 
-//Update a User with ID
+//Update a User with UID
 exports.update = (req, res) => {
-    const id = req.params.id;
+    const UID = req.headers.token_uid;
 
     User.update(req.body, {
-        where: {id: id}
+        where: {UID: UID}
     }).then((result) => {
-        if( result==1) {
+        if( result) {
             res.send({
+                success: true,
                 message: "User was update successfully"
             });
         } else {
-            res.send({ message: "Cannot update user with id" + id})
+            res.send({ message: "Cannot update user with uid" + UID})
         }
     }).catch((err) => {
         res.status(500).send({ 
-            message: "error updating user with id=" + id
+            message: "error updating user with uid=" + UID
         })
     });
 };
 
-//Delete a User with ID
+//Delete a User with UID
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const UID = req.headers.token_uid;
 
     User.destroy({
-        where: {id: id}
+        where: {UID: UID}
     }).then((result) => {
         if( result == 1) {
             res.send({
+                success: true,
                 message: 'User was deleted successfully'
             })
         } else {
             res.send({
-                message: 'Cannot delete user with id ' + id
+                message: 'Cannot delete user with id ' + UID
             })
         }
     }).catch((err) => {
         res.status(500).send({
-            message: 'error deleting with id ' + id
+            message: 'error deleting with id ' + UID
         })
     });
 
@@ -108,18 +123,7 @@ exports.delete = (req, res) => {
 
 //Delete all
 exports.DeleteAll = (req, res) => {
-    User.destroy({
-        where: {},
-        truncate: false
-    }).then((result) => {
-        res.send({
-            message: `${result} User delete successfully`
-        }); 
-    }).catch((err) => {
-        res.status(500).send({
-            message: err.message || 'Some error occurred while deleting'
-        });
-    });
+    
 };
 
 //Find all published

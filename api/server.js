@@ -9,6 +9,7 @@ const app = express();
 
 let whitelist = [
     'http://localhost:8081',
+    'https://capstone-food.et.r.appspot.com/'
 ];
 let corsOption = {
     origin: function (origin, callback) {
@@ -34,8 +35,10 @@ app.get("/", (req, res) => {
     });
 });
 
-//user route
+//user routes
 require("./app/routes/user.routes")(app);
+//list routes
+require("./app/routes/list.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 

@@ -4,7 +4,7 @@
   "description": "Bangkit2022-CapstoneProject",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./server.js"
+    "start": "node ./server.js"
   },
   "keywords": [
     "node",
