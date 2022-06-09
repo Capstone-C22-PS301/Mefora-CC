@@ -1,19 +1,19 @@
 module.exports = (sequelize, Sequelize) => {
-    const List = sequelize.define('list',{
+    const UserDisease = sequelize.define('userDisease',{
         patient_uid: {
             type: Sequelize.STRING,
             model: 'users',
             key: 'UID'
         },
-        doctor_uid: {
+        disease_id: {
             type: Sequelize.STRING,
-            model: 'users',
-            key: 'UID'
+            model: 'diseases',
+            key: 'id'
         },
-        patient_name: {
+        disease_name: {
             type: Sequelize.STRING
         }
     });
 
-    return List;
+    return UserDisease;
 }

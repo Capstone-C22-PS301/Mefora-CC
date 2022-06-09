@@ -22,5 +22,6 @@ db.sequelize = sequelize;
 db.users = require('./user.model.js')(sequelize, Sequelize);
 db.lists = require('./list.model.js')(sequelize, Sequelize);
 db.diseases = require('./disease.model.js')(sequelize, Sequelize);
+db.userDiseases = require('./userDisease.model.js')(sequelize, Sequelize);
 module.exports = db;
 
