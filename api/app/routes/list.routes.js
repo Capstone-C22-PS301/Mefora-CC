@@ -1,5 +1,4 @@
 const { route } = require('express/lib/router');
-const authMiddleware = require('../middleware/authMiddleware')
 
 module.exports = app => {
     const lists = require('../controllers/list.controller.js');
@@ -21,5 +20,5 @@ module.exports = app => {
     //Delete single users
     //router.delete("/:UID", users.delete);
 
-    app.use("/api/lists", [authMiddleware], router);
+    app.use("/api/lists", router);
 }

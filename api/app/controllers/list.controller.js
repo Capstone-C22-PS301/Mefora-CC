@@ -2,7 +2,6 @@ const { route } = require('express/lib/router');
 const db = require('../models');
 const List = db.lists;
 const Op = db.Sequelize.Op;
-const axios = require('axios');
 
 //Create
 exports.create = (req, res) => {
@@ -44,24 +43,6 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     const doctor_uid = req.headers.doctor_uid;
     let condition = doctor_uid ? { doctor_uid: { [Op.like]: `%${doctor_uid}%` } } : null;
-    const res = axios.get('cloudfunction')
-    const toket = res.config.headers.Authorization
-
-    const predict = axios.post(urlml, 
-        {
-            "instances": [
-                {
-                    "Disease": "pregnancy",
-                    "User_Id": "user_105"
-                }]
-        }
-      , {
-    headers: {
-        ...req.headers,
-        Authorization: toket
-    }
-})
-
 
 List.findAll({ where: condition })
     .then((data) => {
