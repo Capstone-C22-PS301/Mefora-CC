@@ -1,24 +1,24 @@
 const { route } = require('express/lib/router');
 const db = require('../models');
-const List = db.lists;
+const UserDisease = db.userDiseases;
 const Op = db.Sequelize.Op;
 
 //Create
 exports.create = (req, res) => {
-    if (!req.body.doctor_uid && !req.body.patient_uid) {
+    if (!req.body.patient_uid) {
         res.status(400).send({
             message: "content can not be empty"
         });
         return;
     }
 
-    const list = {
+    const userDiease = {
         patient_uid: req.body.patient_uid,
-        patient_name: req.body.patient_name,
-        doctor_uid: req.body.doctor_uid
+        disease_id: req.body.disease_id,
+        disease_name: req.body.disease_name
     }
 
-    List.create(list)
+    UserDisease.create(list)
         .then((data) => {
             if (data) {
                 res.send({
@@ -42,10 +42,10 @@ exports.create = (req, res) => {
 
 //get patient with doctor uid
 exports.findAll = (req, res) => {
-    const doctor_uid = req.headers.doctor_uid;
-    let condition = doctor_uid ? { doctor_uid: { [Op.like]: `%${doctor_uid}%` } } : null;
+    const patient_uid = req.headers.patient_uid;
+    let condition = patient_uid ? { patient_uid: { [Op.like]: `%${patient_uid}%` } } : null;
 
-List.findAll({ where: condition })
+UserDisease.findAll({ where: condition })
     .then((data) => {
         res.send(data);
     }).catch((err) => {

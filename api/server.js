@@ -41,6 +41,8 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/list.routes")(app);
 //disease routes
 require("./app/routes/disease.routes")(app);
+//userDisease routes
+require("./app/routes/userDisease.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 
