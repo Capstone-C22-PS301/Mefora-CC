@@ -12,7 +12,7 @@ module.exports = app => {
     router.get("/doctor_uid", lists.findAll);
 
     //Retrieve single users
-    //router.get("/:UID", users.findOne);
+    router.get("/patient_uid", lists.findOne);
 
     //Update single users
     //router.put("/:UID", users.update);
