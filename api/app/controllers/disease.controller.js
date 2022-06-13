@@ -56,15 +56,16 @@ exports.findAll = (req, res) => {
 
 //Find a single
 exports.findOne = (req, res) => {
-    const disease = req.headers.disease;
+    const disease =  req.headers.disease;
     let condition = disease ? { disease: { [Op.like]: `%${disease}%` } } : null;
-
-    Disease.findOne(condition)
-        .then((data) =>{
+    
+    Disease.findOne({ where: condition })
+        .then((data) => {
             res.send(data);
         }).catch((err) => {
             res.status(500).send({
-                message: "Error retrieving user with id=" + UID
+                message: 
+                err.message || "Some error occurred while find user"
             });
         });
 };

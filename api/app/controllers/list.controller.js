@@ -55,3 +55,19 @@ List.findAll({ where: condition })
         });
     });
 };
+
+//get doctor with patient UID
+exports.findOne = (req, res) => {
+    const patient_uid = req.headers.patient_uid;
+    let condition = patient_uid ? { patient_uid: { [Op.like]: `%${patient_uid}%` } } : null;
+
+List.findOne({ where: condition })
+    .then((data) => {
+        res.send(data);
+    }).catch((err) => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while find user"
+        });
+    });
+};

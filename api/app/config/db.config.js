@@ -1,7 +1,7 @@
 module.exports = {
-    HOST: 'localhost',
-    USER: 'root',
-    PASSWORD: '',
+    HOST: '34.135.51.7',
+    USER: 'masterdb',
+    PASSWORD: 'masterdb',
     DB: "mefora",
     dialect: "mysql",
     pool: {

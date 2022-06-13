@@ -12,13 +12,13 @@ exports.create = (req, res) => {
         return;
     }
 
-    const userDiease = {
+    const userDisease = {
         patient_uid: req.body.patient_uid,
         disease_id: req.body.disease_id,
         disease_name: req.body.disease_name
     }
 
-    UserDisease.create(list)
+    UserDisease.create(userDisease)
         .then((data) => {
             if (data) {
                 res.send({
